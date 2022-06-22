@@ -14,7 +14,8 @@ age INT
 CREATE TABLE IF NOT EXISTS genremusican
 (
 genre_id INT REFERENCES genre(id),
-musican_id INT REFERENCES musican(id)
+musican_id INT REFERENCES musican(id),
+PRIMARY KEY(genre_id, musican_id)
 );
 
 CREATE TABLE IF NOT EXISTS album
@@ -27,7 +28,8 @@ release_date DATE
 CREATE TABLE IF NOT EXISTS musicanalbum
 (
 musican_id INT REFERENCES musican(id),
-album_id INT REFERENCES album(id)
+album_id INT REFERENCES album(id),
+PRIMARY KEY(musican_id, album_id)
 );
 
 CREATE TABLE IF NOT EXISTS track
@@ -48,5 +50,6 @@ release_date DATE
 CREATE TABLE IF NOT EXISTS trackcollection
 (
 track_id INT REFERENCES track(id),
-collection_id INT REFERENCES collection(id)
+collection_id INT REFERENCES collection(id),
+PRIMARY KEY(track_id, collection_id)
 );
