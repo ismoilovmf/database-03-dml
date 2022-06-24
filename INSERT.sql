@@ -16,7 +16,7 @@ INSERT INTO musican (name, age) VALUES
 ('Musican name 8', 25);
 
 INSERT INTO genremusican (genre_id, musican_id) VALUES 
-(4, 1),
+(4, 2),
 (3, 2),
 (2, 3),
 (5, 4),
@@ -48,15 +48,15 @@ INSERT INTO musicanalbum (musican_id, album_id) VALUES
 (5 , 4),
 (4 , 5),
 (3 , 6),
-(2 , 7),
+(2 , 2),
 (1 , 8),
 (2 , 7),
-(3 , 6),
-(4 , 5),
-(5 , 4),
-(6 , 3),
-(7 , 2),
-(8 , 1);
+(3 , 1),
+(4 , 2),
+(5 , 3),
+(6 , 4),
+(7 , 5),
+(8 , 6);
 
 INSERT INTO track (name, length, album_id) VALUES
 ('Track name 1', '00:04:30', 8),
@@ -104,7 +104,7 @@ INSERT INTO trackcollection (track_id, collection_id) VALUES
 (2 , 8),
 (3 , 1),
 (4 , 2),
-(5 , 3),
+(5 , 5),
 (6 , 4),
 (7 , 5),
 (8 , 6),
@@ -112,6 +112,6 @@ INSERT INTO trackcollection (track_id, collection_id) VALUES
 (10 , 8),
 (11 , 1),
 (12 , 2),
-(13 , 3),
+(13 , 6),
 (14 , 4),
 (15 , 5);
