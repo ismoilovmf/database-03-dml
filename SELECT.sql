@@ -44,21 +44,15 @@ GROUP BY a."name"
 ORDER BY a."name";
 
 -- все исполнители, которые не выпустили альбомы в 2020 году;
-/* Способ №1 через JOIN */
-SELECT m."name" FROM musican m
+SELECT name FROM musican
+WHERE name != (SELECT m."name" FROM musican m
 JOIN musicanalbum ma
-ON m.id = ma.musican_id
+ON m.id = ma.musican_id 
 JOIN album a
 ON ma.album_id = a.id
-WHERE a.release_date NOT BETWEEN '20200101' AND '20201231'
-GROUP BY m."name"
-ORDER BY m."name";
+WHERE a.release_date BETWEEN '20200101' AND '20201231')
 
-/* Способ №2 без JOIN */
-SELECT musican."name" FROM musican, album, musicanalbum
-WHERE musican.id = musican_id AND album.id = album_id AND release_date NOT  BETWEEN '20200101' AND '20201231'
-GROUP BY musican."name"
-ORDER BY musican."name";
+
 
 -- названия сборников, в которых присутствует конкретный исполнитель (выберите сами);
 -- на выбор исполнитель Musican name 3
@@ -75,7 +69,6 @@ ON a.id = ma.album_id
 JOIN musican m
 ON ma.musican_id = m.id
 WHERE m."name" = 'Musican name 3'
-GROUP BY c."name"
 ORDER BY c."name";
 
 /* Способ №2 без JOIN */
@@ -83,7 +76,6 @@ SELECT collection."name" FROM musican, musicanalbum, album, track, trackcollecti
 WHERE track.id = track_id AND collection_id = collection.id AND 
 album.id = track.album_id AND musican.id = musican_id AND 
 album.id = musicanalbum.album_id AND musican."name" = 'Musican name 3'
-GROUP BY collection."name"
 ORDER BY collection."name";
 
 -- название альбомов, в которых присутствуют исполнители более 1 жанра;
@@ -101,23 +93,13 @@ HAVING COUNT(*) > 1
 ORDER BY a."name";
 
 -- наименование треков, которые не входят в сборники;
-SELECT t."name"  FROM genre g
-JOIN genremusican gm
-ON g.id = gm.genre_id
-JOIN musican m
-ON gm.musican_id = m.id
-JOIN musicanalbum ma
-ON m.id = ma.musican_id 
-JOIN album a
-ON ma.album_id = a.id
-JOIN track t
-ON a.id = t.album_id 
+SELECT name FROM track
+WHERE id NOT IN (
+SELECT DISTINCT t.id  FROM track t
 JOIN trackcollection tc
 ON t.id = tc.track_id
 JOIN collection c
-ON tc.collection_id = c.id
-GROUP BY t."name" 
-HAVING t."name" NOT IN (SELECT name FROM track);
+ON tc.collection_id = c.id)
 
 /* исполнителя(-ей), написавшего самый короткий 
 по продолжительности трек (теоретически таких треков может быть несколько);	*/
